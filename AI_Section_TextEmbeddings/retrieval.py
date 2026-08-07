@@ -14,15 +14,10 @@ from FlagEmbedding import BGEM3FlagModel
 # Configuration
 # ============================================================
 
-# retrieval.py is expected to be inside:
-# RAG Based Security Auditor/AI_Section_TextEmbeddings/
 SCRIPT_DIRECTORY = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIRECTORY.parent
 
-# Change this to the processed project folder you want to retrieve for.
-#
-# Your current test produced:
-# processed/test_codebase.py/method_data.csv
+
 PROCESSED_PROJECT_NAME = "testcode"
 
 METHOD_DATA_FILE = (
@@ -60,10 +55,8 @@ SKIPPED_FUNCTIONS_FILE = (
 TOP_K = 3
 
 # Number of user descriptions embedded together.
-# Reduce this if your computer runs out of memory.
 EMBEDDING_BATCH_SIZE = 8
 
-# Your functional descriptions are short.
 MAX_LENGTH = 512
 
 
@@ -128,7 +121,6 @@ def read_method_data(file_path: Path) -> list[dict[str, str]]:
 
     methods: list[dict[str, str]] = []
 
-    # utf-8-sig also handles CSV files that include a BOM.
     with file_path.open(
         "r",
         encoding="utf-8-sig",
@@ -180,9 +172,8 @@ def read_method_data(file_path: Path) -> list[dict[str, str]]:
     return methods
 
 
-# ============================================================
 # Read full knowledge-base records
-# ============================================================
+
 
 def read_knowledge_base(
     file_path: Path,
@@ -240,12 +231,10 @@ def read_knowledge_base(
     return records_by_index
 
 
-# ============================================================
 # BGE-M3
-# ============================================================
 
 def load_embedding_model() -> BGEM3FlagModel:
-    """Load the same embedding model used during ingestion."""
+    
 
     cuda_available = torch.cuda.is_available()
 
@@ -301,9 +290,7 @@ def embed_descriptions(
     return dense_vectors.tolist()
 
 
-# ============================================================
 # Chroma
-# ============================================================
 
 def open_chroma_collection():
     """
@@ -345,9 +332,9 @@ def open_chroma_collection():
     return collection
 
 
-# ============================================================
+
 # Retrieval helpers
-# ============================================================
+
 
 def parse_integer(
     value: str,
@@ -459,9 +446,8 @@ def build_candidate(
     }
 
 
-# ============================================================
+
 # Retrieval
-# ============================================================
 
 def retrieve_for_methods(
     methods: list[dict[str, str]],
@@ -610,10 +596,7 @@ def retrieve_for_methods(
     return retrieval_results, skipped_methods
 
 
-# ============================================================
 # Console output
-# ============================================================
-
 def print_retrieval_summary(
     retrieval_record: dict[str, Any],
 ) -> None:
@@ -658,9 +641,7 @@ def print_retrieval_summary(
         )
 
 
-# ============================================================
 # Output writers
-# ============================================================
 
 def write_jsonl(
     records: list[dict[str, Any]],
@@ -721,10 +702,7 @@ def write_skipped_csv(
         writer.writerows(skipped_methods)
 
 
-# ============================================================
 # Verification
-# ============================================================
-
 def verify_retrieval_results(
     retrieval_results: list[dict[str, Any]],
 ) -> None:
@@ -756,10 +734,7 @@ def verify_retrieval_results(
         )
 
 
-# ============================================================
 # Main
-# ============================================================
-
 def main() -> None:
     print("=" * 70)
     print("USER FUNCTION KNOWLEDGE RETRIEVAL")
