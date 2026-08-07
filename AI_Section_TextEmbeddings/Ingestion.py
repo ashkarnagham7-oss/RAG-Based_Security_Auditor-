@@ -8,9 +8,7 @@ import torch
 from FlagEmbedding import BGEM3FlagModel
 
 
-# ============================================================
 # Configuration
-# ============================================================
 
 DATASET_FILE = Path("final-knowledge-base.jsonl")
 
@@ -39,10 +37,7 @@ METADATA_FIELDS = [
     "owasp_2025",
 ]
 
-
-# ============================================================
 # Dataset loading
-# ============================================================
 
 def read_jsonl(file_path: Path) -> list[dict]:
     """Read and validate a JSONL dataset."""
@@ -81,9 +76,7 @@ def read_jsonl(file_path: Path) -> list[dict]:
     return records
 
 
-# ============================================================
 # Validation
-# ============================================================
 
 def validate_records(records: list[dict]) -> None:
     """Validate IDs and required fields before creating embeddings."""
@@ -156,10 +149,7 @@ def validate_records(records: list[dict]) -> None:
         )
 
 
-# ============================================================
 # Metadata preparation
-# ============================================================
-
 def is_valid_metadata_value(value: Any) -> bool:
     """
     Chroma metadata supports scalar strings, integers,
@@ -205,9 +195,7 @@ def build_metadata(record: dict) -> dict:
     return metadata
 
 
-# ============================================================
 # Model loading
-# ============================================================
 
 def load_embedding_model() -> BGEM3FlagModel:
     """Load BGE-M3 using GPU when CUDA is available."""
@@ -234,9 +222,7 @@ def load_embedding_model() -> BGEM3FlagModel:
     return model
 
 
-# ============================================================
 # Chroma collection
-# ============================================================
 
 def create_fresh_collection(
     client: chromadb.PersistentClient,
@@ -274,9 +260,7 @@ def create_fresh_collection(
     return collection
 
 
-# ============================================================
 # Ingestion
-# ============================================================
 
 def ingest_records(
     records: list[dict],
@@ -342,9 +326,7 @@ def ingest_records(
         )
 
 
-# ============================================================
 # Verification
-# ============================================================
 
 def verify_collection(
     records: list[dict],
@@ -398,9 +380,7 @@ def verify_collection(
     )
 
 
-# ============================================================
 # Test semantic query
-# ============================================================
 
 def run_test_query(
     model: BGEM3FlagModel,
@@ -471,9 +451,7 @@ def run_test_query(
         print(f"Description: {document}")
 
 
-# ============================================================
 # Main
-# ============================================================
 
 def main() -> None:
     print("=" * 60)
