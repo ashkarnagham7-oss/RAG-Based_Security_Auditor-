@@ -10,10 +10,7 @@ import torch
 from FlagEmbedding import BGEM3FlagModel
 
 
-# ============================================================
 # Configuration
-# ============================================================
-
 SCRIPT_DIRECTORY = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIRECTORY.parent
 
@@ -60,9 +57,8 @@ EMBEDDING_BATCH_SIZE = 8
 MAX_LENGTH = 512
 
 
-# ============================================================
 # File validation
-# ============================================================
+
 
 def require_file(file_path: Path, description: str) -> None:
     """Raise a clear error when an input file is missing."""
@@ -99,10 +95,7 @@ def require_directory(
         )
 
 
-# ============================================================
 # Read user functions
-# ============================================================
-
 def read_method_data(file_path: Path) -> list[dict[str, str]]:
     """Read functions produced by users_code_preprocessing.py."""
 
