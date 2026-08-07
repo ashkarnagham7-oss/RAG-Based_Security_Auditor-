@@ -7,10 +7,7 @@ from pathlib import Path
 from typing import Any
 
 
-# ============================================================
 # Configuration
-# ============================================================
-
 SCRIPT_DIRECTORY = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIRECTORY.parent
 
@@ -48,10 +45,7 @@ JSON_REPORT_FILE = (
 )
 
 
-# ============================================================
 # File helpers
-# ============================================================
-
 def require_file(
     file_path: Path,
     description: str,
@@ -167,9 +161,7 @@ def write_json_file(
         )
 
 
-# ============================================================
 # Formatting helpers
-# ============================================================
 
 def text_value(
     value: Any,
@@ -253,12 +245,6 @@ def format_lines(
 def confidence_to_severity(
     finding: dict[str, Any],
 ) -> str:
-    """
-    Temporary report severity derived from confidence.
-
-    Replace this later if your reasoning stage outputs a true
-    vulnerability severity field.
-    """
 
     level = str(
         finding.get("confidence_level", "")
@@ -504,9 +490,7 @@ def build_report_data(
     }
 
 
-# ============================================================
 # HTML sections
-# ============================================================
 
 def build_summary_cards(
     summary: dict[str, Any],
@@ -896,9 +880,7 @@ def build_errors_section(
     """
 
 
-# ============================================================
 # HTML report
-# ============================================================
 
 def build_html_report(
     report_data: dict[str, Any],
@@ -1286,10 +1268,7 @@ def build_html_report(
 """
 
 
-# ============================================================
 # Main
-# ============================================================
-
 def main() -> None:
     print("=" * 70)
     print("SECURITY REPORT GENERATION")
