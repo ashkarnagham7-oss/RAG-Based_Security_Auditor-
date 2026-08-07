@@ -15,9 +15,7 @@ from tree_sitter import Node, Parser, Query, QueryCursor
 from tree_sitter_language_pack import get_language
 
 
-# ============================================================
 # OpenAI configuration
-# ============================================================
 
 load_dotenv()
 
@@ -37,9 +35,7 @@ client = OpenAI(
 )
 
 
-# ============================================================
 # Supported languages
-# ============================================================
 
 class LanguageEnum(Enum):
     PYTHON = "python"
@@ -56,9 +52,7 @@ FILE_EXTENSION_LANGUAGE_MAP = {
 }
 
 
-# ============================================================
 # Tree-sitter definition queries
-# ============================================================
 
 LANGUAGE_QUERIES = {
     LanguageEnum.PYTHON: {
@@ -119,9 +113,7 @@ LANGUAGE_QUERIES = {
 }
 
 
-# ============================================================
 # Tree-sitter reference queries
-# ============================================================
 
 REFERENCE_QUERIES = {
     LanguageEnum.PYTHON: {
@@ -180,9 +172,7 @@ REFERENCE_QUERIES = {
 }
 
 
-# ============================================================
 # File filtering
-# ============================================================
 
 IGNORED_DIRECTORIES = [
     ".git/",
@@ -233,9 +223,7 @@ VALID_EXTENSIONS = [
 ]
 
 
-# ============================================================
 # Data objects
-# ============================================================
 
 @dataclass
 class MethodNode:
@@ -258,9 +246,7 @@ class ClassNode:
     end_line: int
 
 
-# ============================================================
 # Functional-description generation
-# ============================================================
 
 FUNCTION_DESCRIPTION_INSTRUCTIONS = """
 You generate abstract functional descriptions of source-code functions.
@@ -356,9 +342,7 @@ Source code:
     return None, str(last_error)
 
 
-# ============================================================
 # File discovery
-# ============================================================
 
 def get_language_from_extension(
     file_extension: str,
@@ -452,9 +436,7 @@ def get_valid_files(
     return valid_files
 
 
-# ============================================================
 # Tree-sitter helpers
-# ============================================================
 
 def node_text(node: Node) -> str:
     return node.text.decode(
@@ -498,7 +480,6 @@ def get_definition_node(name_node: Node) -> Node:
 
     definition_node = name_node.parent
 
-    # Include Python decorators when a function is decorated.
     if (
         definition_node is not None
         and definition_node.parent is not None
@@ -509,9 +490,7 @@ def get_definition_node(name_node: Node) -> Node:
     return definition_node
 
 
-# ============================================================
 # Class method declarations
-# ============================================================
 
 def extract_class_methods(
     class_node: Node,
@@ -553,10 +532,8 @@ def extract_class_methods(
     return declarations
 
 
-# ============================================================
-# JavaScript/TypeScript route handlers
-# ============================================================
 
+# JavaScript/TypeScript route handlers
 HTTP_ROUTE_METHODS = {
     "get",
     "post",
@@ -691,9 +668,7 @@ def extract_route_handlers(
     return route_results
 
 
-# ============================================================
 # File parsing
-# ============================================================
 
 def parse_and_extract(
     file_bytes: bytes,
@@ -711,9 +686,7 @@ def parse_and_extract(
     class_nodes: list[Node] = []
     class_name_by_node_id: dict[int, str] = {}
 
-    # --------------------------------------------------------
     # Extract classes
-    # --------------------------------------------------------
 
     class_query = Query(
         language,
@@ -767,9 +740,7 @@ def parse_and_extract(
                 )
             )
 
-    # --------------------------------------------------------
     # Extract named functions and methods
-    # --------------------------------------------------------
 
     method_query = Query(
         language,
@@ -835,9 +806,8 @@ def parse_and_extract(
                 )
             )
 
-    # --------------------------------------------------------
     # Extract anonymous JS/TS route callbacks
-    # --------------------------------------------------------
+    
 
     if language_enum in {
         LanguageEnum.JAVASCRIPT,
@@ -862,10 +832,7 @@ def parse_and_extract(
     return class_results, method_results
 
 
-# ============================================================
 # Repository parsing and description generation
-# ============================================================
-
 def build_method_id(
     codebase_root: Path,
     file_path: str,
@@ -938,9 +905,7 @@ def parse_files(
             .as_posix()
         )
 
-        # ----------------------------------------------------
         # Store class records
-        # ----------------------------------------------------
 
         for class_node in class_nodes:
             all_class_names.add(class_node.name)
@@ -962,9 +927,7 @@ def parse_files(
                 "references": [],
             })
 
-        # ----------------------------------------------------
         # Generate function descriptions
-        # ----------------------------------------------------
 
         for method_position, method_node in enumerate(
             method_nodes,
@@ -1035,9 +998,7 @@ def parse_files(
     )
 
 
-# ============================================================
 # Reference extraction
-# ============================================================
 
 def find_references(
     file_list: list[tuple[str, LanguageEnum]],
@@ -1195,9 +1156,7 @@ def attach_references(
             )
 
 
-# ============================================================
 # CSV output
-# ============================================================
 
 def create_output_directory(
     codebase_path: Path,
@@ -1349,9 +1308,7 @@ def write_description_errors_to_csv(
     )
 
 
-# ============================================================
 # Main pipeline
-# ============================================================
 
 def main() -> None:
  
