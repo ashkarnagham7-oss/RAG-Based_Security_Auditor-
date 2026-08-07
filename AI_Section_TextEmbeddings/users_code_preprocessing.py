@@ -1184,8 +1184,6 @@ def attach_references(
     for method_record in method_data:
         method_name = method_record["name"]
 
-        # Route-handler names such as "GET /users" do not have
-        # normal function-call references.
         if method_record["unit_type"] == "route_handler":
             method_record["references"] = []
         else:
@@ -1356,7 +1354,7 @@ def write_description_errors_to_csv(
 # ============================================================
 
 def main() -> None:
-    # Change this to the repository the user wants to analyse.
+ 
     codebase_path = Path(
         r"C:\Users\ASUST\Desktop\RAG Based Security Auditor\BenchmarkPython-main\testcode"
     )
