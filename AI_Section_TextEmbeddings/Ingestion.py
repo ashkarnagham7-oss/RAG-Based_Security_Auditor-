@@ -19,13 +19,10 @@ COLLECTION_NAME = "securecode_vulnerability_kb"
 
 EMBEDDING_MODEL = "BAAI/bge-m3"
 
-# Number of descriptions embedded and inserted at one time.
-# Reduce this if you encounter memory problems.
 EMBEDDING_BATCH_SIZE = 8
 CHROMA_BATCH_SIZE = 100
 
-# Functional descriptions are short, so 512 is sufficient.
-# BGE-M3 supports longer inputs, but they are unnecessary here.
+
 MAX_LENGTH = 512
 
 METADATA_FIELDS = [
