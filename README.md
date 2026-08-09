@@ -5,8 +5,8 @@ The main objective of the project is to detect vulnerable and non-vulnerable fun
 
 Two retrieval approaches are currently examined:
 
-BGE-M3-based retrieval, where functional descriptions of source-code functions are embedded and matched against semantically similar vulnerability records.
-UniXcoder-based retrieval, where source code itself is embedded and compared directly with vulnerable code examples in the knowledge base.
+- BGE-M3-based retrieval, where functional descriptions of source-code functions are embedded and matched against semantically similar vulnerability records.
+- UniXcoder-based retrieval, where source code itself is embedded and compared directly with vulnerable code examples in the knowledge base.
 
 The retrieved records are then provided to an LLM-based reasoning stage, which classifies each function as vulnerable, not vulnerable, or uncertain, and can additionally identify the associated CWE and supporting evidence.
 
